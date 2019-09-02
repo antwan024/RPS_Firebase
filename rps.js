@@ -55,20 +55,20 @@ database.ref().on("value", function(snapshot) {
 
 
 
-
-
-
 function playerCheck(event){
 
     if(playerOne===true) {
         round[0]=$(event.target).attr("value");
-    } else if (playerTwo=true) {
+    } else if (playerTwo===true) {
         round[1]=$(event.target).attr("value");
     };
 
     //update Firebase with player choice.
     database.ref().update({
-        round: round
+        round: round,
+        playerOnePoints: playerOnePoints,
+        playerTwoPoints: playerTwoPoints
+
     });
 };
 
