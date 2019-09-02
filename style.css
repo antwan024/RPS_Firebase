@@ -1,0 +1,45 @@
+#instructions {
+    background-color: blue;
+    height: 200px;
+}
+
+#results {
+    background-color: green;
+    height: 300px;
+}
+
+#scoreboard {
+    background-color: purple;
+    height: 200px;
+}
+
+#mainRow {
+
+    /* height: 200px; */
+
+}
+
+#rock {
+    height: 200px;
+    background-color: blue;
+}
+
+#paper {
+    height: 200px;
+    background-color: red;
+}
+
+#scissors {
+    height: 200px;
+    background-color: orange;
+}
+
+#choices {
+
+    /* height: 300px; */
+}
+
+#footer {
+    height: 50px;
+    background-color: red;
+}
