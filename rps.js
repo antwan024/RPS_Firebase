@@ -45,10 +45,13 @@ database.ref().on("value", function(snapshot) {
     console.log("The read failed: " + errorObject.code);
   });
   
-  // --------------------------------------------------------------
+// --------------------------------------------------------------
 
 
-
+// database.ref().update({
+//     highBidder: bidderName,
+//     highPrice: bidderPrice
+// });
 
 
 
@@ -62,7 +65,13 @@ function playerCheck(event){
     } else if (playerTwo=true) {
         round[1]=$(event.target).attr("value");
     };
+
+    //update Firebase with player choice.
+    database.ref().update({
+        round: round
+    });
 };
+
 
 $("#playerOneButton").click(function(event){    
     $("#player").text("You are player 1");
