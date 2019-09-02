@@ -19,6 +19,7 @@ var playerOneWinArray = [ ['r','s'], ['p','r'], ['s','p'] ];
 var playerTwoWinArray = [ ['s','r'], ['r','p'], ['p','s'] ];
 var playerOnePoints = 0;
 var playerTwoPoints = 0;
+var tiePoints = 0;
 var round = [];
 var playerOne = false;
 var playerTwo = false;
@@ -48,14 +49,10 @@ database.ref().on("value", function(snapshot) {
 // --------------------------------------------------------------
 
 
-// database.ref().update({
-//     highBidder: bidderName,
-//     highPrice: bidderPrice
-// });
 
 
 
-function playerCheck(event){
+function playerInput(event){
 
     if(playerOne===true) {
         round[0]=$(event.target).attr("value");
@@ -63,7 +60,9 @@ function playerCheck(event){
         round[1]=$(event.target).attr("value");
     };
 
-    //update Firebase with player choice.
+
+
+    //update Firebase with player choices and points.
     database.ref().update({
         round: round,
         playerOnePoints: playerOnePoints,
@@ -72,12 +71,32 @@ function playerCheck(event){
     });
 };
 
+function checkArray() {
+
+    if(round[0]===undefined || round[1]===undefined){
+        console.log("Awaiting other player...");
+    } else if (playerOneWinArray.includes(round)) {
+        console.log("Player One wins!!!")
+        playerOnePoints++;
+    } else if (playerTwoWinArray.includes(round)) {
+        console.log("Player Two wins!!!")
+        playerTwoPoints++;
+    } else if (round[0]===round[1]) {
+        console.log("You tied!!!!");
+        tiePoints++;
+    };
+
+
+};
+
 
 $("#playerOneButton").click(function(event){    
     $("#player").text("You are player 1");
     console.log("You are player 1");
     playerOne=true;
     playerTwo=false;
+    round=[];
+    console.log(round);
 });
 
 $("#playerTwoButton").click(function(event){    
@@ -85,23 +104,31 @@ $("#playerTwoButton").click(function(event){
     console.log("You are player 2");
     playerOne=false;
     playerTwo=true;
+    round=[];
+    console.log(round);
 });
 
 $("#rock").click( function(event) {
-    playerCheck(event);
+    playerInput(event);
+    checkArray();
     console.log(round);
+    
 });
 
-
 $("#paper").click( function(event) {
-    playerCheck(event);
+    playerInput(event);
+    checkArray();
     console.log(round);
+    
 });
 
 $("#scissors").click( function(event) {
-    playerCheck(event);
+    playerInput(event);
+    checkArray();
     console.log(round);
+  
 });
+
 
 
 
