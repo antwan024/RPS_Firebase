@@ -1,3 +1,20 @@
+var config = {
+       
+    apiKey: "AIzaSyBtVDqdZY0xq0kabYw0ZgUkS1EB-kvLqtQ",
+    authDomain: "rock-paper-scissors-ba8c4.firebaseapp.com",
+    databaseURL: "https://rock-paper-scissors-ba8c4.firebaseio.com",
+    projectId: "rock-paper-scissors-ba8c4",
+    storageBucket: "",
+    messagingSenderId: "255387682191",
+    appId: "1:255387682191:web:c60c6ae66c35febc"
+
+};
+
+firebase.initializeApp(config);
+
+// variable to reference the Firebase database
+var database = firebase.database();
+
 var playerOneWinArray = [ ['r','s'], ['p','r'], ['s','p'] ];
 var playerTwoWinArray = [ ['s','r'], ['r','p'], ['p','s'] ];
 var playerOnePoints = 0;
@@ -5,6 +22,37 @@ var playerTwoPoints = 0;
 var round = [];
 var playerOne = false;
 var playerTwo = false;
+
+
+// --------------------------------------------------------------
+
+// Check and update app for Firebase data
+database.ref().on("value", function(snapshot) {
+
+    if (snapshot.child("playerOnePoints").exists() && snapshot.child("playerTwoPoints").exists() && snapshot.child("round").exists()) {
+      // Set the variables equal to the stored values.
+        playerOnePoints = parseInt(snapshot.val().playerOnePoints);
+        playerTwoPoints = parseInt(snapshot.val().playerTwoPoints);
+        round = snapshot.val().round;
+    };
+  
+    console.log(playerOnePoints);
+    console.log(playerTwoPoints);
+    console.log(round);
+  
+    // If any errors are experienced, log them to console.
+  }, function(errorObject) {
+    console.log("The read failed: " + errorObject.code);
+  });
+  
+  // --------------------------------------------------------------
+
+
+
+
+
+
+
 
 
 function playerCheck(event){
