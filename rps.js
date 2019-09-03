@@ -48,10 +48,6 @@ database.ref().on("value", function(snapshot) {
   
 // --------------------------------------------------------------
 
-
-
-
-
 function playerInput(event){
 
     if(playerOne===true) {
@@ -60,17 +56,17 @@ function playerInput(event){
         round[1]=$(event.target).attr("value");
     };
 
-
-
     //update Firebase with player choices and points.
     database.ref().update({
         round: round,
         playerOnePoints: playerOnePoints,
-        playerTwoPoints: playerTwoPoints
+        playerTwoPoints: playerTwoPoints,
+        tiePoints: tiePoints
 
     });
 };
 
+//Checks if the results are in the playerOneWinArrayor playerTwoWinArray.
 function checkPlayerWin(array, elementCheck){
 
     if(array.includes(elementCheck.toString())){
@@ -81,6 +77,8 @@ function checkPlayerWin(array, elementCheck){
 
 };
 
+
+//Checks the choices to see if both players made choices and determines winner, point counters and ties. Then empties array.
 function checkArray() {
 
     if(round[0]===undefined || round[1]===undefined){
@@ -91,18 +89,17 @@ function checkArray() {
         tiePoints++;
     };
 
-
     if(checkPlayerWin(playerOneWinArray,round)) {
         console.log("PlayerOneWins!!!!!!");
-        console.log(checkPlayerWin(playerOneWinArray,round));
-        console.log(checkPlayerWin(playerTwoWinArray,round));
+        playerOnePoints++;
+        round = [];
     }else if(checkPlayerWin(playerTwoWinArray,round)) {
         console.log("PlayerTwoWins!!!!!!");
-        console.log(checkPlayerWin(playerOneWinArray,round));
-        console.log(checkPlayerWin(playerTwoWinArray,round));
+        playerTwoPoints++;
+        round = [];
     };
 
-
+    
 
 };
 
@@ -153,24 +150,3 @@ $("#scissors").click( function(event) {
 
 
 
-// var choiceOne = $("#playerOneChoice").val().trim();
-// var choiceTwo = $("#playerTwoChoice").val().trim();
-
-
-// round.push(choiceOne);
-// round.push(choiceTwo);
-
-
-// if(playerOneWinArray.includes(round) ) {
-    
-//     playerOnePoints++;
-
-// }else if(playerTwoWinArray.includes(round)){
-
-//     playerTwoPoints++
-
-// }else if(round[0]===round[1]) {
-
-//     console.log("It's a tie!");
-
-// }
