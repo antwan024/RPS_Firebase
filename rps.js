@@ -15,8 +15,8 @@ firebase.initializeApp(config);
 // variable to reference the Firebase database
 var database = firebase.database();
 
-var playerOneWinArray = [ ['r','s'], ['p','r'], ['s','p'] ];
-var playerTwoWinArray = [ ['s','r'], ['r','p'], ['p','s'] ];
+var playerOneWinArray = [ "r,s", "p,r", "s,p" ];
+var playerTwoWinArray = [ "s,r", "r,p", "p,s" ];
 var playerOnePoints = 0;
 var playerTwoPoints = 0;
 var tiePoints = 0;
@@ -71,20 +71,37 @@ function playerInput(event){
     });
 };
 
+function checkPlayerWin(array, elementCheck){
+
+    if(array.includes(elementCheck.toString())){
+        return true;
+    } else {
+        return false;
+    };
+
+};
+
 function checkArray() {
 
     if(round[0]===undefined || round[1]===undefined){
         console.log("Awaiting other player...");
-    } else if (playerOneWinArray.includes(round)) {
-        console.log("Player One wins!!!")
-        playerOnePoints++;
-    } else if (playerTwoWinArray.includes(round)) {
-        console.log("Player Two wins!!!")
-        playerTwoPoints++;
+    
     } else if (round[0]===round[1]) {
         console.log("You tied!!!!");
         tiePoints++;
     };
+
+
+    if(checkPlayerWin(playerOneWinArray,round)) {
+        console.log("PlayerOneWins!!!!!!");
+        console.log(checkPlayerWin(playerOneWinArray,round));
+        console.log(checkPlayerWin(playerTwoWinArray,round));
+    }else if(checkPlayerWin(playerTwoWinArray,round)) {
+        console.log("PlayerTwoWins!!!!!!");
+        console.log(checkPlayerWin(playerOneWinArray,round));
+        console.log(checkPlayerWin(playerTwoWinArray,round));
+    };
+
 
 
 };
@@ -95,7 +112,6 @@ $("#playerOneButton").click(function(event){
     console.log("You are player 1");
     playerOne=true;
     playerTwo=false;
-    round=[];
     console.log(round);
 });
 
@@ -104,7 +120,6 @@ $("#playerTwoButton").click(function(event){
     console.log("You are player 2");
     playerOne=false;
     playerTwo=true;
-    round=[];
     console.log(round);
 });
 
