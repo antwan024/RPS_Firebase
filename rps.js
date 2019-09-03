@@ -24,8 +24,7 @@ var round = [];
 var playerOne = false;
 var playerTwo = false;
 
-
-// --------------------------------------------------------------
+// ---------------------------------------------------------------------------------------------------
 
 // Check and update app for Firebase data
 database.ref().on("value", function(snapshot) {
@@ -46,8 +45,11 @@ database.ref().on("value", function(snapshot) {
     console.log("The read failed: " + errorObject.code);
   });
   
-// --------------------------------------------------------------
+// ---------------------------------------------------------------------------------------------------
 
+
+
+//inputs value to round array from the user's click.  Also checks for player one or player two inout.  Then updated Firebase DB.
 function playerInput(event){
 
     if(playerOne===true) {
@@ -87,19 +89,21 @@ function checkArray() {
     } else if (round[0]===round[1]) {
         console.log("You tied!!!!");
         tiePoints++;
+        $("#tiePoints").text(tiePoints);
+        round = [];
     };
 
     if(checkPlayerWin(playerOneWinArray,round)) {
         console.log("PlayerOneWins!!!!!!");
         playerOnePoints++;
+        $("#playerOnePoints").text(playerOnePoints);
         round = [];
     }else if(checkPlayerWin(playerTwoWinArray,round)) {
         console.log("PlayerTwoWins!!!!!!");
         playerTwoPoints++;
+        $("#playerTwoPoints").text(playerTwoPoints);
         round = [];
     };
-
-    
 
 };
 
