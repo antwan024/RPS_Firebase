@@ -29,13 +29,18 @@ var playerTwo = false;
 // Check and update app for Firebase data
 database.ref().on("value", function(snapshot) {
 
-    if (snapshot.child("playerOnePoints").exists() && snapshot.child("playerTwoPoints").exists() && snapshot.child("round").exists()) {
+    if (snapshot.child("playerOnePoints").exists() && snapshot.child("playerTwoPoints").exists() && snapshot.child("round").exists() && snapshot.child("tiePoints").exists()) {
       // Set the variables equal to the stored values.
         playerOnePoints = parseInt(snapshot.val().playerOnePoints);
         playerTwoPoints = parseInt(snapshot.val().playerTwoPoints);
+        tiePoints = parseInt(snapshot.val().tiePoints);
         round = snapshot.val().round;
     };
   
+    $("#playerOnePoints").text(playerOnePoints);
+    $("#playerTwoPoints").text(playerTwoPoints);
+    $("#tiePoints").text(tiePoints);
+    $("#playerBoard").text(round.toString());
     console.log(playerOnePoints);
     console.log(playerTwoPoints);
     console.log(round);
@@ -63,12 +68,12 @@ function playerInput(event){
         round: round,
         playerOnePoints: playerOnePoints,
         playerTwoPoints: playerTwoPoints,
-        tiePoints: tiePoints
+        tiePoints: tiePoints,
 
     });
 };
 
-//Checks if the results are in the playerOneWinArrayor playerTwoWinArray.
+//Checks if the results are in the playerOneWinArray or playerTwoWinArray.
 function checkPlayerWin(array, elementCheck){
 
     if(array.includes(elementCheck.toString())){
@@ -83,22 +88,25 @@ function checkPlayerWin(array, elementCheck){
 //Checks the choices to see if both players made choices and determines winner, point counters and ties. Then empties array.
 function checkArray() {
 
-    if(round[0]===undefined || round[1]===undefined){
+    if(round[0]===undefined || round.length===1){
         console.log("Awaiting other player...");
+        $("#results").text("Awaiting other player...");
     
     } else if (round[0]===round[1]) {
         console.log("You tied!!!!");
+        $("#results").text("You tied!!!!");
         tiePoints++;
         $("#tiePoints").text(tiePoints);
         round = [];
     };
 
-    if(checkPlayerWin(playerOneWinArray,round)) {
+    if(checkPlayerWin(playerOneWinArray,round) && round.length===2) {
         console.log("PlayerOneWins!!!!!!");
+        $("#results").text("PlayerOneWins!!!!!!");
         playerOnePoints++;
         $("#playerOnePoints").text(playerOnePoints);
         round = [];
-    }else if(checkPlayerWin(playerTwoWinArray,round)) {
+    }else if(checkPlayerWin(playerTwoWinArray,round) && round.length===2) {
         console.log("PlayerTwoWins!!!!!!");
         playerTwoPoints++;
         $("#playerTwoPoints").text(playerTwoPoints);
@@ -113,7 +121,6 @@ $("#playerOneButton").click(function(event){
     console.log("You are player 1");
     playerOne=true;
     playerTwo=false;
-    console.log(round);
 });
 
 $("#playerTwoButton").click(function(event){    
@@ -121,12 +128,13 @@ $("#playerTwoButton").click(function(event){
     console.log("You are player 2");
     playerOne=false;
     playerTwo=true;
-    console.log(round);
 });
 
 $("#rock").click( function(event) {
     playerInput(event);
     checkArray();
+    $("#playerChoice").text("Rock");
+    $("#playerBoard").text(round.toString());
     console.log(round);
     
 });
@@ -134,6 +142,8 @@ $("#rock").click( function(event) {
 $("#paper").click( function(event) {
     playerInput(event);
     checkArray();
+    $("#playerChoice").text("Paper");
+    $("#playerBoard").text(round.toString());
     console.log(round);
     
 });
@@ -141,16 +151,8 @@ $("#paper").click( function(event) {
 $("#scissors").click( function(event) {
     playerInput(event);
     checkArray();
+    $("#playerChoice").text("Scissors");
+    $("#playerBoard").text(round.toString());
     console.log(round);
   
 });
-
-
-
-
-
-
-
-
-
-

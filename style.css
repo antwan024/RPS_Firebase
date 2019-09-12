@@ -3,7 +3,7 @@
     height: 200px;
 }
 
-#results {
+#resultBoard {
     background-color: green;
     height: 300px;
 }
@@ -41,5 +41,5 @@
 
 #footer {
     height: 50px;
-    background-color: red;
+    background-color: purple;
 }
