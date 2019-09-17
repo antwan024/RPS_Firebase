@@ -29,18 +29,18 @@ var playerTwo = false;
 // Check and update app for Firebase data
 database.ref().on("value", function(snapshot) {
 
-    if (snapshot.child("playerOnePoints").exists() && snapshot.child("playerTwoPoints").exists() && snapshot.child("round").exists() && snapshot.child("tiePoints").exists()) {
+    if (snapshot.child("playerOnePoints").exists() && snapshot.child("playerTwoPoints").exists() && snapshot.child("tiePoints").exists()) {
       // Set the variables equal to the stored values.
         playerOnePoints = parseInt(snapshot.val().playerOnePoints);
         playerTwoPoints = parseInt(snapshot.val().playerTwoPoints);
         tiePoints = parseInt(snapshot.val().tiePoints);
-        round = snapshot.val().round;
+        // round = snapshot.val().round;
     };
   
     $("#playerOnePoints").text(playerOnePoints);
     $("#playerTwoPoints").text(playerTwoPoints);
     $("#tiePoints").text(tiePoints);
-    $("#playerBoard").text(round.toString());
+    // $("#playerBoard").text(round.toString());
     console.log(playerOnePoints);
     console.log(playerTwoPoints);
     console.log(round);
@@ -116,7 +116,8 @@ function checkArray() {
     };
 
     database.ref().update({
-        round: round,
+        
+        // round: round,
         playerOnePoints: playerOnePoints,
         playerTwoPoints: playerTwoPoints,
         tiePoints: tiePoints,
