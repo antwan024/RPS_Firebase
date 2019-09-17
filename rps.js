@@ -64,13 +64,14 @@ function playerInput(event){
     };
 
     //update Firebase with player choices and points.
-    database.ref().update({
-        round: round,
-        playerOnePoints: playerOnePoints,
-        playerTwoPoints: playerTwoPoints,
-        tiePoints: tiePoints,
+    // database.ref().update({
+    //     round: round,
+    //     playerOnePoints: playerOnePoints,
+    //     playerTwoPoints: playerTwoPoints,
+    //     tiePoints: tiePoints,
 
-    });
+    // });
+     
 };
 
 //Checks if the results are in the playerOneWinArray or playerTwoWinArray.
@@ -100,18 +101,27 @@ function checkArray() {
         round = [];
     };
 
-    if(checkPlayerWin(playerOneWinArray,round) && round.length===2) {
+    if(checkPlayerWin(playerOneWinArray,round)) {
         console.log("PlayerOneWins!!!!!!");
         $("#results").text("PlayerOneWins!!!!!!");
         playerOnePoints++;
         $("#playerOnePoints").text(playerOnePoints);
         round = [];
-    }else if(checkPlayerWin(playerTwoWinArray,round) && round.length===2) {
+    }else if(checkPlayerWin(playerTwoWinArray,round)) {
         console.log("PlayerTwoWins!!!!!!");
+        $("#results").text("PlayerTwoWins!!!!!!");
         playerTwoPoints++;
         $("#playerTwoPoints").text(playerTwoPoints);
         round = [];
     };
+
+    database.ref().update({
+        round: round,
+        playerOnePoints: playerOnePoints,
+        playerTwoPoints: playerTwoPoints,
+        tiePoints: tiePoints,
+
+    });
 
 };
 
@@ -131,6 +141,7 @@ $("#playerTwoButton").click(function(event){
 });
 
 $("#rock").click( function(event) {
+    
     playerInput(event);
     checkArray();
     $("#playerChoice").text("Rock");
@@ -140,6 +151,7 @@ $("#rock").click( function(event) {
 });
 
 $("#paper").click( function(event) {
+    
     playerInput(event);
     checkArray();
     $("#playerChoice").text("Paper");
@@ -149,6 +161,7 @@ $("#paper").click( function(event) {
 });
 
 $("#scissors").click( function(event) {
+    
     playerInput(event);
     checkArray();
     $("#playerChoice").text("Scissors");
