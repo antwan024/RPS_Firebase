@@ -34,13 +34,13 @@ database.ref().on("value", function(snapshot) {
         playerOnePoints = parseInt(snapshot.val().playerOnePoints);
         playerTwoPoints = parseInt(snapshot.val().playerTwoPoints);
         tiePoints = parseInt(snapshot.val().tiePoints);
-        // round = snapshot.val().round;
+        
     };
   
     $("#playerOnePoints").text(playerOnePoints);
     $("#playerTwoPoints").text(playerTwoPoints);
     $("#tiePoints").text(tiePoints);
-    // $("#playerBoard").text(round.toString());
+    
     console.log(playerOnePoints);
     console.log(playerTwoPoints);
     console.log(round);
@@ -63,14 +63,6 @@ function playerInput(event){
         round[1]=$(event.target).attr("value");
     };
 
-    //update Firebase with player choices and points.
-    // database.ref().update({
-    //     round: round,
-    //     playerOnePoints: playerOnePoints,
-    //     playerTwoPoints: playerTwoPoints,
-    //     tiePoints: tiePoints,
-
-    // });
      
 };
 
@@ -117,7 +109,7 @@ function checkArray() {
 
     database.ref().update({
         
-        // round: round,
+        
         playerOnePoints: playerOnePoints,
         playerTwoPoints: playerTwoPoints,
         tiePoints: tiePoints,

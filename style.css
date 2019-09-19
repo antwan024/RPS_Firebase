@@ -22,16 +22,19 @@
 #rock {
     height: 200px;
     background-color: blue;
+    text-align: center;
 }
 
 #paper {
     height: 200px;
     background-color: red;
+    text-align: center;
 }
 
 #scissors {
     height: 200px;
     background-color: orange;
+    text-align: center;
 }
 
 #choices {
