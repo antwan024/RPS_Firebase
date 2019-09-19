@@ -1,46 +1,48 @@
+.row {
+    text-align: center;
+}
+
 #instructions {
     background-color: blue;
     height: 200px;
 }
 
 #resultBoard {
-    background-color: green;
+    background-color: grey;
     height: 300px;
 }
+
 
 #scoreboard {
     background-color: purple;
     height: 200px;
 }
 
-#mainRow {
-
-    /* height: 200px; */
-
-}
 
 #rock {
     height: 200px;
-    background-color: blue;
+    background-image: url("the-rock.jpg");
+    background-size: cover;
     text-align: center;
+    color: white;
+    
 }
 
 #paper {
     height: 200px;
-    background-color: red;
+    background-image: url("paper.jpg");
+    background-size: cover;
     text-align: center;
 }
 
 #scissors {
     height: 200px;
-    background-color: orange;
+    background-image: url("edward.jpg");
+    background-size: cover;
     text-align: center;
 }
 
-#choices {
 
-    /* height: 300px; */
-}
 
 #footer {
     height: 50px;
